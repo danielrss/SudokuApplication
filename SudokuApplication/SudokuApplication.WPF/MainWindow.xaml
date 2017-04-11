@@ -1,0 +1,52 @@
+﻿<Window x:Class="SudokuApplication.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SudokuApplication.WPF"
+        xmlns:appCore="clr-namespace:SudokuApplication.Core;assembly=SudokuApplication.Core"
+        xmlns:enums="clr-namespace:SudokuApplication.Core.Enums;assembly=SudokuApplication.Core"
+        mc:Ignorable="d"
+        Title="SudokuApp" Height="548.874" Width="642.343">
+    <Grid>
+        <Grid.Resources>
+            <ObjectDataProvider x:Key="SudokuDifficultyEnumValues" MethodName="GetValues" ObjectType="{x:Type enums:SudokuDifficultyType}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="enums:SudokuDifficultyType"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <Image x:Key="UndoImage" Source="pack://application:,,,/Resources/Images/btn-undo.ico" Stretch="Fill"/>
+            <Image x:Key="RedoImage" Source="pack://application:,,,/Resources/Images/btn-redo.ico" Stretch="Fill"/>
+            <Image x:Key="RestartImage" Source="pack://application:,,,/Resources/Images/btn-restart.ico" Stretch="Fill"/>
+        </Grid.Resources>
+
+        <appCore:SudokuUserControl x:Name="SudokuGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="454" Height="451"
+                                  Loaded="SudokuGrid_Loaded" KeyUp="SudokuGrid_KeyUp" MouseLeftButtonUp="SudokuGrid_MouseLeftButtonUp"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="149" Margin="9,10,0,0" VerticalAlignment="Top" Width="152"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="149" Margin="311,10,0,0" VerticalAlignment="Top" Width="152"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="149" Margin="160,10,0,0" VerticalAlignment="Top" Width="152"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="151" Margin="9,159,0,0" VerticalAlignment="Top" Width="152"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="151" Margin="311,159,0,0" VerticalAlignment="Top" Width="152"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="152" Margin="160,158,0,0" VerticalAlignment="Top" Width="152"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="151" Margin="9,310,0,0" VerticalAlignment="Top" Width="152"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="151" Margin="311,310,0,0" VerticalAlignment="Top" Width="152"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="151" Margin="160,310,0,0" VerticalAlignment="Top" Width="152"/>
+
+        <ProgressBar Name="ProgressBar_SudokuStatus" HorizontalAlignment="Left" Height="28" Margin="10,472,0,0" VerticalAlignment="Top" Width="453" Minimum="0" Maximum="100"/>
+
+        <Button x:Name="button_Undo" Content="{StaticResource UndoImage}" HorizontalAlignment="Left" Margin="484,10,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="button_Undo_Click"/>
+        <Button x:Name="button_Redo" Content="{StaticResource RedoImage}" HorizontalAlignment="Left" Margin="531,10,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="button_Redo_Click"/>
+        <Button x:Name="button_Restart" Content="{StaticResource RestartImage}" HorizontalAlignment="Left" Margin="575,10,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="button_Restart_Click"/>
+        <Button x:Name="button_Hint" Content="Hint?" HorizontalAlignment="Left" Margin="484,60,0,0" VerticalAlignment="Top" Width="126" Height="40" FontSize="18" Click="button_Hint_Click"/>
+        <Button x:Name="button_Solve" Content="Solve" HorizontalAlignment="Left" Margin="484,115,0,0" VerticalAlignment="Top" Width="126" Height="40" FontSize="18" Click="button_Solve_Click"/>
+        <Button x:Name="button_Quit" Content="Quit" HorizontalAlignment="Left" Margin="484,421,0,0" VerticalAlignment="Top" Width="126" Height="40" FontSize="18" Click="button_Quit_Click"/>
+        <Button x:Name="button_GenerateNew" Content="Generate New" HorizontalAlignment="Left" Margin="484,366,0,0" VerticalAlignment="Top" Width="126" Height="40" FontSize="18" Click="button_GenerateNew_Click"/>
+        <ComboBox x:Name="comboBox_SudokuDifficulty" 
+                  ItemsSource="{Binding Source={StaticResource SudokuDifficultyEnumValues}}" 
+                  SelectedItem="{Binding Path=DataContext.SelectedSudokuDifficulty}" 
+                  SelectionChanged="comboBox_SudokuDifficulty_SelectionChanged"
+                  HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="40" Margin="484,311,0,0" VerticalAlignment="Top" Width="126" FontSize="18"/>
+        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="484,170,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="132" Width="126" FontSize="16"/>
+        <Label x:Name="label_Timer" Content="" HorizontalAlignment="Left" Margin="484,466,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Height="34" Width="126" FontSize="18"/>
+    </Grid>
+</Window>
